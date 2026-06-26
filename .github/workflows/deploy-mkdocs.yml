@@ -15,6 +15,9 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,8 +28,6 @@ jobs:
       - name: Checkout Metis repository assets
         if: ${{ env.METIS_REPO_TOKEN != '' }}
         uses: actions/checkout@v6
-        env:
-          METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
         with:
           repository: 5B-Projects/metis
           ref: develop
@@ -35,8 +36,6 @@ jobs:
 
       - name: Copy rendered design images from Metis
         if: ${{ env.METIS_REPO_TOKEN != '' }}
-        env:
-          METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
         run: |
           mkdir -p docs/assets/component-tree docs/assets/er
           cp _metis/docs/design/07-er/image/all-er-diagrams.png docs/assets/er/all-er-diagrams.png
@@ -44,8 +43,6 @@ jobs:
 
       - name: Create image placeholder when assets are not available
         if: ${{ env.METIS_REPO_TOKEN == '' }}
-        env:
-          METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
         run: |
           mkdir -p docs/assets/component-tree docs/assets/er
           cat > docs/assets/README.md <<'EOF'
