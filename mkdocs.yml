@@ -1,0 +1,46 @@
+site_name: Metis 設計レビュー資料
+site_description: 卒業制作 Metis の先生レビュー用ドキュメント
+site_url: https://5b-projects.github.io/review_Repository/
+repo_url: https://github.com/5B-Projects/review_Repository
+repo_name: 5B-Projects/review_Repository
+
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: teal
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search:
+      lang: ja
+
+nav:
+  - 入口: index.md
+  - 05 コンポーネントツリー図: 05-component-tree.md
+  - 06 画面データ要求: 06-screen-data-requirements.md
+  - 07 ER図: 07-er.md
+  - 08 テーブルレイアウト: 08-table-layout.md
+  - 09 Supabase配置: 09-supabase-data-placement.md
+  - 10 DBスキーマ設計: 10-database-schema.md
+  - レビュー用構成: review-scope.md
