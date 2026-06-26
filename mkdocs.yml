@@ -11,7 +11,6 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - navigation.indexes
     - toc.follow
     - content.code.copy
   palette:
@@ -36,11 +35,19 @@ plugins:
       lang: ja
 
 nav:
-  - 入口: index.md
-  - 05 コンポーネントツリー図: 05-component-tree.md
-  - 06 画面データ要求: 06-screen-data-requirements.md
-  - 07 ER図: 07-er.md
-  - 08 テーブルレイアウト: 08-table-layout.md
-  - 09 Supabase配置: 09-supabase-data-placement.md
-  - 10 DBスキーマ設計: 10-database-schema.md
-  - レビュー用構成: review-scope.md
+  - 00 入口:
+      - 概要: index.md
+  - 05 コンポーネントツリー図:
+      - 見方と粒度: 05-component-tree.md
+  - 06 画面データ要求:
+      - コア画面のデータ要求: 06-screen-data-requirements.md
+  - 07 ER図:
+      - ER図の見方: 07-er.md
+  - 08 テーブルレイアウト:
+      - 扱い方: 08-table-layout.md
+  - 09 Supabase配置:
+      - データ配置方針: 09-supabase-data-placement.md
+  - 10 DBスキーマ設計:
+      - DBスキーマ方針: 10-database-schema.md
+  - レビュー用構成:
+      - レビュー範囲: review-scope.md
