@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Metis 初回レビューの確認順</title>
+  <desc id="desc">コンポーネントツリー図、画面データ要求、ER図、Supabase配置、DBスキーマ設計の関係を示す図</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L11,4 z" fill="#50607a" />
+    </marker>
+    <style><![CDATA[
+      .title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .sub { font: 14px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #607089; }
+      .box { fill: #ffffff; stroke: #314d7f; stroke-width: 2; }
+      .box2 { fill: #eef5ff; stroke: #314d7f; stroke-width: 2; }
+      .label { font: 700 17px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .small { font: 12px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #5c6b80; }
+      .edge { fill: none; stroke: #50607a; stroke-width: 2; marker-end: url(#arrow); }
+      .note { fill: #f8fafc; stroke: #d7deea; stroke-width: 1.5; }
+      .noteText { font: 13px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #475569; }
+    ]]></style>
+  </defs>
+  <rect width="1280" height="520" fill="#ffffff" />
+  <text x="40" y="48" class="title">初回レビューで見せる設計のつながり</text>
+  <text x="40" y="74" class="sub">画面の分割方針から、必要データ、ER、保存先、DBスキーマまでを一続きで確認する</text>
+
+  <rect x="55" y="135" width="205" height="120" rx="14" class="box2" />
+  <text x="78" y="169" class="label">05 コンポーネント</text>
+  <text x="78" y="195" class="small">画面をどの粒度で</text>
+  <text x="78" y="215" class="small">React部品へ分けるか</text>
+  <text x="78" y="235" class="small">共通化候補も確認</text>
+
+  <path d="M260 195 L320 195" class="edge" />
+
+  <rect x="325" y="135" width="205" height="120" rx="14" class="box" />
+  <text x="348" y="169" class="label">06 データ要求</text>
+  <text x="348" y="195" class="small">画面ごとの表示</text>
+  <text x="348" y="215" class="small">入力・保存・更新</text>
+  <text x="348" y="235" class="small">イベントを確認</text>
+
+  <path d="M530 195 L590 195" class="edge" />
+
+  <rect x="595" y="135" width="205" height="120" rx="14" class="box2" />
+  <text x="618" y="169" class="label">07 ER図</text>
+  <text x="618" y="195" class="small">コア体験を中心に</text>
+  <text x="618" y="215" class="small">テーブルと関係を確認</text>
+  <text x="618" y="235" class="small">全体ERは後段</text>
+
+  <path d="M800 195 L860 195" class="edge" />
+
+  <rect x="865" y="135" width="205" height="120" rx="14" class="box" />
+  <text x="888" y="169" class="label">09 Supabase配置</text>
+  <text x="888" y="195" class="small">DB・Storage・Edge</text>
+  <text x="888" y="215" class="small">Authの分担を確認</text>
+  <text x="888" y="235" class="small">保存先の妥当性</text>
+
+  <path d="M1070 195 L1130 195" class="edge" />
+
+  <rect x="1135" y="135" width="105" height="120" rx="14" class="box2" />
+  <text x="1155" y="169" class="label">10 DB</text>
+  <text x="1155" y="195" class="small">スキーマ</text>
+  <text x="1155" y="215" class="small">制約</text>
+  <text x="1155" y="235" class="small">RLS</text>
+
+  <rect x="55" y="315" width="1185" height="112" rx="16" class="note" />
+  <text x="80" y="350" class="noteText">初回レビューの主対象: SC006 ガイド生成 / SC007 ガイド進行 / SC008 学習ガイド終了 / SC009 教材詳細</text>
+  <text x="80" y="378" class="noteText">別紙扱い: 課金・決済 / 管理者・監査ログ / 組織管理 / 通知・フォロー / 検索ログ</text>
+  <text x="80" y="406" class="noteText">狙い: 「画面に必要な値」から「DBに置くべき正本」まで、説明が途切れていないかを確認する</text>
+</svg>
