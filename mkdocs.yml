@@ -33,6 +33,7 @@ markdown_extensions:
 plugins:
   - search:
       lang: ja
+  - glightbox
 
 nav:
   - 00 入口:
