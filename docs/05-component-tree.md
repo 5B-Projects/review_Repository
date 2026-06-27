@@ -6,8 +6,8 @@
 
 このレビュー資料では、元資料の全画像をそのまま並べるのではなく、**コア画面の分割方針が分かる説明** と **代表画面のツリー図** に絞って掲載します。
 
-画像は `review_Repository` の `docs/assets/component-tree/` に直接含めています。  
-そのため、GitHub Actions 実行時に別リポジトリから画像をコピーする必要はありません。
+レビュー用に作成した説明画像は `docs/assets/component-tree/` に置いています。  
+また、`metis` リポジトリで実際に使用している画像は、同期後に `docs/assets/metis/component-tree/` に実ファイルとして配置します。
 
 !!! note "画像の確認方法"
     ページ上の画像はクリックすると拡大表示できます。  
@@ -111,11 +111,11 @@
 
 ---
 
-## ツリー図の例
+## レビュー用の説明画像
 
 ### 例1: SC006 ガイド生成
 
-この図は、ゴール入力・タグ選択・学習スタイル設定・生成状態表示をどう分けるかを見るための例です。
+この図は、ゴール入力・タグ選択・学習スタイル設定・生成状態表示をどう分けるかを見るためのレビュー用画像です。
 
 [![SC006 ガイド生成 コンポーネントツリー](../assets/component-tree/learning-guide-generation-page.svg)](../assets/component-tree/learning-guide-generation-page.svg)
 
@@ -123,11 +123,30 @@
 
 ### 例2: SC007 ガイド進行
 
-この図は、学習本文・進捗・AI相談・コード評価をどう分けるかを見るための例です。
+この図は、学習本文・進捗・AI相談・コード評価をどう分けるかを見るためのレビュー用画像です。
 
 [![SC007 ガイド進行 コンポーネントツリー](../assets/component-tree/guide-progress-page.svg)](../assets/component-tree/guide-progress-page.svg)
 
 画像ファイル: [サイトで開く](../assets/component-tree/guide-progress-page.svg) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/component-tree/guide-progress-page.svg)
+
+---
+
+## metisで実際に使用している画像
+
+以下は、`5B-Projects/metis` の `docs/design/05-component-tree/image/` で実際に使用しているPNG画像です。  
+`Sync Metis design images` ワークフローを実行すると、`review_Repository` の `docs/assets/metis/component-tree/` にコピーされます。
+
+### 実画像: SC006 ガイド生成
+
+[![metis実画像 SC006 ガイド生成](../assets/metis/component-tree/learning-guide-generation-page.png)](../assets/metis/component-tree/learning-guide-generation-page.png)
+
+画像ファイル: [サイトで開く](../assets/metis/component-tree/learning-guide-generation-page.png) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/metis/component-tree/learning-guide-generation-page.png) / [metisの元画像](https://github.com/5B-Projects/metis/blob/develop/docs/design/05-component-tree/image/learning-guide-generation-page.png)
+
+### 実画像: SC007 ガイド進行
+
+[![metis実画像 SC007 ガイド進行](../assets/metis/component-tree/guide-progress-page.png)](../assets/metis/component-tree/guide-progress-page.png)
+
+画像ファイル: [サイトで開く](../assets/metis/component-tree/guide-progress-page.png) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/metis/component-tree/guide-progress-page.png) / [metisの元画像](https://github.com/5B-Projects/metis/blob/develop/docs/design/05-component-tree/image/guide-progress-page.png)
 
 ---
 
