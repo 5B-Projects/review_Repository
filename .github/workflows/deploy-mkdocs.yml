@@ -13,40 +13,12 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout review repository
         uses: actions/checkout@v6
-
-      - name: Checkout Metis repository assets
-        if: ${{ env.METIS_REPO_TOKEN != '' }}
-        uses: actions/checkout@v6
-        with:
-          repository: 5B-Projects/metis
-          ref: develop
-          token: ${{ secrets.METIS_REPO_TOKEN }}
-          path: _metis
-
-      - name: Copy rendered design images from Metis
-        if: ${{ env.METIS_REPO_TOKEN != '' }}
-        run: |
-          mkdir -p docs/assets/component-tree docs/assets/er
-          cp _metis/docs/design/07-er/image/all-er-diagrams.png docs/assets/er/all-er-diagrams.png
-          cp _metis/docs/design/05-component-tree/image/*.png docs/assets/component-tree/
-
-      - name: Create image placeholder when assets are not available
-        if: ${{ env.METIS_REPO_TOKEN == '' }}
-        run: |
-          mkdir -p docs/assets/component-tree docs/assets/er
-          cat > docs/assets/README.md <<'EOF'
-          Images were not copied because METIS_REPO_TOKEN is not configured.
-          Add a repository secret named METIS_REPO_TOKEN with read access to 5B-Projects/metis.
-          EOF
 
       - name: Set up Python
         uses: actions/setup-python@v5
