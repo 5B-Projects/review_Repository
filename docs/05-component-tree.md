@@ -9,6 +9,10 @@
 画像は `review_Repository` の `docs/assets/component-tree/` に直接含めています。  
 そのため、GitHub Actions 実行時に別リポジトリから画像をコピーする必要はありません。
 
+!!! note "画像の確認方法"
+    ページ上の画像はクリックすると拡大表示できます。  
+    画像直下のリンクから、画像ファイル単体やGitHub上の実ファイルも確認できます。
+
 ---
 
 ## コンポーネント分割のざっくり粒度
@@ -113,13 +117,17 @@
 
 この図は、ゴール入力・タグ選択・学習スタイル設定・生成状態表示をどう分けるかを見るための例です。
 
-![SC006 ガイド生成 コンポーネントツリー](../assets/component-tree/learning-guide-generation-page.svg)
+[![SC006 ガイド生成 コンポーネントツリー](../assets/component-tree/learning-guide-generation-page.svg)](../assets/component-tree/learning-guide-generation-page.svg)
+
+画像ファイル: [サイトで開く](../assets/component-tree/learning-guide-generation-page.svg) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/component-tree/learning-guide-generation-page.svg)
 
 ### 例2: SC007 ガイド進行
 
 この図は、学習本文・進捗・AI相談・コード評価をどう分けるかを見るための例です。
 
-![SC007 ガイド進行 コンポーネントツリー](../assets/component-tree/guide-progress-page.svg)
+[![SC007 ガイド進行 コンポーネントツリー](../assets/component-tree/guide-progress-page.svg)](../assets/component-tree/guide-progress-page.svg)
+
+画像ファイル: [サイトで開く](../assets/component-tree/guide-progress-page.svg) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/component-tree/guide-progress-page.svg)
 
 ---
 
