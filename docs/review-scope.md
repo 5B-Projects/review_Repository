@@ -4,7 +4,9 @@
 
 初回レビューでは、全設計を一度に見せるのではなく、以下の順に確認します。
 
-![初回レビューの確認順](../assets/review/core-review-flow.svg)
+[![初回レビューの確認順](../assets/review/core-review-flow.svg)](../assets/review/core-review-flow.svg)
+
+画像ファイル: [サイトで開く](../assets/review/core-review-flow.svg) / [GitHubで確認](https://github.com/5B-Projects/review_Repository/blob/main/docs/assets/review/core-review-flow.svg)
 
 | 順番 | 資料 | 見ること |
 |---|---|---|
@@ -52,6 +54,9 @@
 
 この方針により、GitHub Actions は `review_Repository` だけをチェックアウトしてMkDocsをビルドできます。  
 `5B-Projects/metis` から画像をコピーするための `METIS_REPO_TOKEN` は不要です。
+
+ページ上の画像はクリックすると拡大表示できます。  
+また、各画像の直下にあるリンクから、サイト上の画像ファイルとGitHub上の実ファイルを直接確認できます。
 
 ---
 
