@@ -42,5 +42,5 @@
 
   <rect x="105" y="330" width="1030" height="95" rx="16" class="note" />
   <text x="135" y="365" class="noteText">対象画面: SC006 ガイド生成 / SC007 ガイド進行 / SC008 学習ガイド終了 / SC009 教材詳細</text>
-  <text x="135" y="395" class="noteText">対象外: 課金・決済 / 管理者・監査ログ / 組織管理 / 通知・フォロー / 詳細DBスキーマ</text>
+  <text x="135" y="395" class="noteText">対象外: 課金・決済 / 管理者・監査ログ / 組織管理 / 通知・フォロー</text>
 </svg>
