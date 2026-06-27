@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1320" viewBox="0 0 1920 1320" role="img" aria-labelledby="title desc">
+  <title id="title">コア範囲ER図（PlantUML風）</title>
+  <desc id="desc">metisの全画面統合ER図の描き方に合わせ、コア範囲だけをpackage、entity、PK/FK、リレーションで表した図</desc>
+  <defs>
+    <style><![CDATA[
+      .title { font: 700 28px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; }
+      .subtitle { font: 14px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #4b5563; }
+      .pkg { fill: #ffffff; stroke: #222222; stroke-width: 1.6; }
+      .pkg-title { font: 700 16px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; }
+      .entity { fill: #fffdf0; stroke: #222222; stroke-width: 1.2; }
+      .entity-head { fill: #fef6c9; stroke: #222222; stroke-width: 1.2; }
+      .entity-title { font: 700 13px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; }
+      .attr { font: 11px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; }
+      .pk { font: 700 11px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; }
+      .rel { fill: none; stroke: #222222; stroke-width: 1.15; }
+      .rel-soft { fill: none; stroke: #555555; stroke-width: 1; stroke-dasharray: 4 4; }
+      .rel-label { font: 10px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #111827; paint-order: stroke; stroke: #ffffff; stroke-width: 4px; }
+      .note { font: 12px 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif; fill: #374151; }
+    ]]></style>
+  </defs>
+
+  <rect width="1920" height="1320" fill="#ffffff" />
+  <text x="32" y="42" class="title">コア範囲ER図（SC006〜SC009）</text>
+  <text x="32" y="68" class="subtitle">5B-Projects/metis の all-er-diagrams.puml と同じ package / entity / PK・FK / リレーションの読み方に合わせたレビュー用抜粋</text>
+
+  <!-- package backgrounds -->
+  <rect x="30" y="95" width="300" height="320" class="pkg" />
+  <text x="45" y="120" class="pkg-title">利用者・前提</text>
+
+  <rect x="30" y="450" width="300" height="180" class="pkg" />
+  <text x="45" y="475" class="pkg-title">タグ</text>
+
+  <rect x="365" y="95" width="370" height="540" class="pkg" />
+  <text x="380" y="120" class="pkg-title">ガイド生成</text>
+
+  <rect x="770" y="95" width="365" height="700" class="pkg" />
+  <text x="785" y="120" class="pkg-title">ガイド進行</text>
+
+  <rect x="1170" y="95" width="350" height="560" class="pkg" />
+  <text x="1185" y="120" class="pkg-title">評価・完了・教材化</text>
+
+  <rect x="1555" y="95" width="330" height="560" class="pkg" />
+  <text x="1570" y="120" class="pkg-title">教材</text>
+
+  <!-- relationships behind entities -->
+  <path d="M300 170 H395" class="rel" /><text x="330" y="160" class="rel-label">||--o{ ゴール</text>
+  <path d="M300 250 H395" class="rel" /><text x="333" y="240" class="rel-label">||--o{ 依頼</text>
+  <path d="M695 170 H805" class="rel" /><text x="720" y="160" class="rel-label">o| 成果物</text>
+  <path d="M695 250 H805" class="rel" /><text x="718" y="240" class="rel-label">o{ 構成案</text>
+  <path d="M1095 250 H1200" class="rel" /><text x="1125" y="240" class="rel-label">|| 評価</text>
+  <path d="M1095 505 H1200" class="rel" /><text x="1118" y="495" class="rel-label">o{ コード評価</text>
+  <path d="M1490 500 H1590" class="rel" /><text x="1515" y="490" class="rel-label">o| 教材</text>
+  <path d="M1455 365 H1590" class="rel" /><text x="1490" y="355" class="rel-label">完了元</text>
+  <path d="M1780 215 V300" class="rel" /><text x="1790" y="260" class="rel-label">||--o{ 版</text>
+  <path d="M1780 390 V475" class="rel" /><text x="1790" y="435" class="rel-label">||--o{ 構成</text>
+  <path d="M315 530 H1590" class="rel-soft" /><text x="880" y="520" class="rel-label">TECHNOLOGY_TAGS ||--o{ GUIDE_TAGS / MATERIAL_TAGS / GENERATION_JOB_TAGS</text>
+
+  <!-- 利用者・前提 -->
+  <g transform="translate(55,140)">
+    <rect width="240" height="92" class="entity" /><rect width="240" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">利用者</text>
+    <text x="12" y="45" class="pk">* 利用者ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">システムロール : enum</text>
+    <text x="12" y="81" class="attr">アカウント状態 : enum</text>
+  </g>
+
+  <g transform="translate(55,255)">
+    <rect width="240" height="92" class="entity" /><rect width="240" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">利用者プロフィール</text>
+    <text x="12" y="45" class="pk">* 利用者ID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">表示名 : varchar</text>
+    <text x="12" y="81" class="attr">ユーザー名 : varchar &lt;&lt;UK&gt;&gt;</text>
+  </g>
+
+  <g transform="translate(55,360)">
+    <rect width="240" height="92" class="entity" /><rect width="240" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">学習スタイル既定値</text>
+    <text x="12" y="45" class="pk">* 利用者ID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">学習方向 / 難易度 : enum</text>
+    <text x="12" y="81" class="attr">説明粒度 / 言語 : enum</text>
+  </g>
+
+  <!-- タグ -->
+  <g transform="translate(55,500)">
+    <rect width="240" height="104" class="entity" /><rect width="240" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">技術タグ</text>
+    <text x="12" y="45" class="pk">* 技術タグID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">スラッグ : varchar &lt;&lt;UK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タグ名 / 分類 : varchar</text>
+    <text x="12" y="99" class="attr">難易度 : enum?</text>
+  </g>
+
+  <!-- ガイド生成 -->
+  <g transform="translate(395,140)">
+    <rect width="300" height="104" class="entity" /><rect width="300" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">学習ゴール下書き</text>
+    <text x="12" y="45" class="pk">* ゴール下書きID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">利用者ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">ゴール本文 : text</text>
+    <text x="12" y="99" class="attr">安全性確認結果 / 状態 : enum</text>
+  </g>
+
+  <g transform="translate(395,270)">
+    <rect width="300" height="122" class="entity" /><rect width="300" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ジョブ</text>
+    <text x="12" y="45" class="pk">* ジョブID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">利用者ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">ジョブ種別 / 状態 : enum</text>
+    <text x="12" y="99" class="attr">進捗率 : integer</text>
+    <text x="12" y="117" class="attr">失敗理由 / ブロック理由 : text?</text>
+  </g>
+
+  <g transform="translate(395,420)">
+    <rect width="300" height="104" class="entity" /><rect width="300" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ガイド生成ジョブ詳細</text>
+    <text x="12" y="45" class="pk">* ジョブID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ゴール下書きID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">版 : integer</text>
+    <text x="12" y="99" class="attr">学習スタイルスナップショット : jsonb</text>
+  </g>
+
+  <g transform="translate(395,550)">
+    <rect width="145" height="72" class="entity" /><rect width="145" height="28" class="entity-head" />
+    <text x="10" y="19" class="entity-title">AI実行</text>
+    <text x="10" y="45" class="pk">* AI実行ID</text>
+    <text x="10" y="63" class="attr">ジョブID &lt;&lt;FK?&gt;&gt;</text>
+  </g>
+  <g transform="translate(550,550)">
+    <rect width="145" height="72" class="entity" /><rect width="145" height="28" class="entity-head" />
+    <text x="10" y="19" class="entity-title">ガードレール</text>
+    <text x="10" y="45" class="pk">* 検査結果ID</text>
+    <text x="10" y="63" class="attr">AI実行ID &lt;&lt;FK&gt;&gt;</text>
+  </g>
+
+  <!-- ガイド進行 -->
+  <g transform="translate(805,140)">
+    <rect width="290" height="104" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">学習ガイド</text>
+    <text x="12" y="45" class="pk">* 学習ガイドID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">利用者ID / ジョブID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タイトル / ゴール内容</text>
+    <text x="12" y="99" class="attr">状態 : enum</text>
+  </g>
+
+  <g transform="translate(805,270)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ガイド章</text>
+    <text x="12" y="45" class="pk">* ガイド章ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">学習ガイドID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タイトル / 表示順</text>
+  </g>
+
+  <g transform="translate(805,385)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ガイドステップ</text>
+    <text x="12" y="45" class="pk">* ガイドステップID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ガイド章ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タイトル / 本文 / 表示順</text>
+  </g>
+
+  <g transform="translate(805,505)">
+    <rect width="290" height="104" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ガイド進捗</text>
+    <text x="12" y="45" class="pk">* ガイド進捗ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">利用者ID / 学習ガイドID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">進捗率 : integer</text>
+    <text x="12" y="99" class="attr">現在章ID / 現在ステップID : uuid?</text>
+  </g>
+
+  <g transform="translate(805,635)">
+    <rect width="135" height="86" class="entity" /><rect width="135" height="28" class="entity-head" />
+    <text x="10" y="19" class="entity-title">章進捗</text>
+    <text x="10" y="45" class="pk">* 章進捗ID</text>
+    <text x="10" y="63" class="attr">ガイド進捗ID</text>
+    <text x="10" y="81" class="attr">状態 : enum</text>
+  </g>
+  <g transform="translate(960,635)">
+    <rect width="135" height="86" class="entity" /><rect width="135" height="28" class="entity-head" />
+    <text x="10" y="19" class="entity-title">ステップ進捗</text>
+    <text x="10" y="45" class="pk">* ステップ進捗ID</text>
+    <text x="10" y="63" class="attr">章進捗ID</text>
+    <text x="10" y="81" class="attr">状態 : enum</text>
+  </g>
+  <g transform="translate(805,740)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">AI相談メッセージ</text>
+    <text x="12" y="45" class="pk">* AI相談メッセージID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ガイド進捗ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">送信者種別 / 本文パス</text>
+  </g>
+
+  <!-- 評価・完了・教材化 -->
+  <g transform="translate(1200,140)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">コード評価ジョブ</text>
+    <text x="12" y="45" class="pk">* ジョブID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ガイド進捗ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">入力アセットパス : text?</text>
+  </g>
+
+  <g transform="translate(1200,255)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">コード評価結果</text>
+    <text x="12" y="45" class="pk">* コード評価結果ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ジョブID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">評価種別 / スコア / 結果サマリー</text>
+  </g>
+
+  <g transform="translate(1200,370)">
+    <rect width="290" height="104" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">ガイド完了記録</text>
+    <text x="12" y="45" class="pk">* ガイド完了ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">利用者ID / 学習ガイドID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">完了日時 : timestamptz</text>
+    <text x="12" y="99" class="attr">進捗率 : integer = 100</text>
+  </g>
+
+  <g transform="translate(1200,500)">
+    <rect width="290" height="86" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">AI評価サマリー</text>
+    <text x="12" y="45" class="pk">* AI評価サマリーID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ガイド完了ID : uuid &lt;&lt;FK,UK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">総合評価 / 評価日時</text>
+  </g>
+
+  <g transform="translate(1200,615)">
+    <rect width="290" height="104" class="entity" /><rect width="290" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材化ジョブ</text>
+    <text x="12" y="45" class="pk">* ジョブID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">ガイド完了ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">作成者利用者ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="99" class="attr">作成教材ID : uuid &lt;&lt;FK?&gt;&gt;</text>
+  </g>
+
+  <!-- 教材 -->
+  <g transform="translate(1590,140)">
+    <rect width="260" height="104" class="entity" /><rect width="260" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材</text>
+    <text x="12" y="45" class="pk">* 教材ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">作成者利用者ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">元学習ガイドID : uuid &lt;&lt;FK?&gt;&gt;</text>
+    <text x="12" y="99" class="attr">タイトル / 公開状態 / 価格金額</text>
+  </g>
+
+  <g transform="translate(1590,275)">
+    <rect width="260" height="104" class="entity" /><rect width="260" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材版</text>
+    <text x="12" y="45" class="pk">* 教材版ID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">教材ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">元ガイド完了ID : uuid &lt;&lt;FK?&gt;&gt;</text>
+    <text x="12" y="99" class="attr">本文アセットパス / 検証状態</text>
+  </g>
+
+  <g transform="translate(1590,410)">
+    <rect width="260" height="86" class="entity" /><rect width="260" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材セクション</text>
+    <text x="12" y="45" class="pk">* 教材セクションID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">教材版ID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タイトル / 表示順</text>
+  </g>
+
+  <g transform="translate(1590,520)">
+    <rect width="260" height="86" class="entity" /><rect width="260" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材チャプター</text>
+    <text x="12" y="45" class="pk">* 教材チャプターID : uuid &lt;&lt;PK&gt;&gt;</text>
+    <text x="12" y="63" class="attr">教材セクションID : uuid &lt;&lt;FK&gt;&gt;</text>
+    <text x="12" y="81" class="attr">タイトル / 本文アセットパス</text>
+  </g>
+
+  <g transform="translate(1590,630)">
+    <rect width="260" height="68" class="entity" /><rect width="260" height="28" class="entity-head" />
+    <text x="12" y="19" class="entity-title">教材タグ関連</text>
+    <text x="12" y="45" class="pk">* 教材ID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+    <text x="12" y="63" class="pk">* 技術タグID : uuid &lt;&lt;PK,FK&gt;&gt;</text>
+  </g>
+
+  <!-- inner package relationship hints -->
+  <path d="M515 392 V420" class="rel" /><text x="525" y="410" class="rel-label">||--o|</text>
+  <path d="M540 524 V550" class="rel" /><text x="550" y="540" class="rel-label">||--o{</text>
+  <path d="M950 244 V270" class="rel" /><text x="960" y="260" class="rel-label">||--o{</text>
+  <path d="M950 356 V385" class="rel" /><text x="960" y="375" class="rel-label">||--o{</text>
+  <path d="M950 609 V635" class="rel" /><text x="960" y="625" class="rel-label">||--o{</text>
+  <path d="M940 678 H960" class="rel" /><text x="940" y="665" class="rel-label">||--o{</text>
+  <path d="M1345 226 V255" class="rel" /><text x="1355" y="245" class="rel-label">||--o{</text>
+  <path d="M1345 474 V500" class="rel" /><text x="1355" y="490" class="rel-label">||--o|</text>
+  <path d="M1345 586 V615" class="rel" /><text x="1355" y="604" class="rel-label">||--o|</text>
+
+  <!-- relationship summary -->
+  <rect x="40" y="880" width="1840" height="360" fill="#ffffff" stroke="#222222" stroke-width="1.2" />
+  <text x="60" y="910" class="pkg-title">主要リレーション（all-er-diagrams.puml からコア範囲を抜粋）</text>
+  <text x="60" y="945" class="note">USERS ||--o{ GOAL_DRAFTS : ゴール　/　USERS ||--o{ JOBS : 依頼　/　JOBS ||--o| GENERATION_JOBS : ガイド生成　/　GENERATION_JOBS ||--o| GUIDES : 成果物</text>
+  <text x="60" y="975" class="note">GUIDES ||--o{ GUIDE_CHAPTERS : 章　/　GUIDE_CHAPTERS ||--o{ GUIDE_STEPS : ステップ　/　GUIDES ||--o{ GUIDE_PROGRESS : 進捗</text>
+  <text x="60" y="1005" class="note">GUIDE_PROGRESS ||--o{ CHAPTER_PROGRESS : 章進捗　/　CHAPTER_PROGRESS ||--o{ STEP_PROGRESS : ステップ進捗　/　GUIDE_PROGRESS ||--o{ CHAT_MESSAGES : AI相談</text>
+  <text x="60" y="1035" class="note">JOBS ||--|| EVALUATION_JOBS : コード評価　/　EVALUATION_JOBS ||--o{ EVALUATION_RESULTS : 評価結果　/　GUIDES ||--o{ GUIDE_COMPLETIONS : 完了記録</text>
+  <text x="60" y="1065" class="note">GUIDE_COMPLETIONS ||--o| AI_EVALUATION_SUMMARIES : AI評価　/　JOBS ||--|| MATERIAL_CREATION_JOBS : 教材化　/　MATERIAL_CREATION_JOBS ||--o| MATERIALS : 教材</text>
+  <text x="60" y="1095" class="note">MATERIALS ||--o{ MATERIAL_VERSIONS : 版　/　MATERIAL_VERSIONS ||--o{ MATERIAL_SECTIONS : 構成　/　MATERIAL_SECTIONS ||--o{ MATERIAL_CHAPTERS : チャプター</text>
+  <text x="60" y="1125" class="note">TECHNOLOGY_TAGS ||--o{ GENERATION_JOB_TAGS / GUIDE_TAGS / MATERIAL_TAGS : タグ分類</text>
+  <text x="60" y="1180" class="note">凡例: * は主キー、&lt;&lt;PK&gt;&gt; は主キー、&lt;&lt;FK&gt;&gt; は外部キー、&lt;&lt;UK&gt;&gt; は一意制約。関係記号はPlantUMLの ||--o{ 形式に合わせています。</text>
+</svg>

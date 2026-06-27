@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Metis 設計資料の確認順</title>
+  <desc id="desc">コンポーネントツリー図、画面データ要求、ER図の関係を示す図</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L11,4 z" fill="#50607a" />
+    </marker>
+    <style><![CDATA[
+      .title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .sub { font: 14px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #607089; }
+      .box { fill: #ffffff; stroke: #314d7f; stroke-width: 2; }
+      .box2 { fill: #eef5ff; stroke: #314d7f; stroke-width: 2; }
+      .label { font: 700 18px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .small { font: 13px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #5c6b80; }
+      .edge { fill: none; stroke: #50607a; stroke-width: 2; marker-end: url(#arrow); }
+      .note { fill: #f8fafc; stroke: #d7deea; stroke-width: 1.5; }
+      .noteText { font: 13px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #475569; }
+    ]]></style>
+  </defs>
+  <rect width="1280" height="520" fill="#ffffff" />
+  <text x="40" y="48" class="title">Metis コア設計資料の構成</text>
+  <text x="40" y="74" class="sub">画面の分割方針から、画面に必要なデータ、データの正本となるテーブルまでを一続きで確認する</text>
+
+  <rect x="105" y="145" width="260" height="130" rx="14" class="box2" />
+  <text x="135" y="184" class="label">05 コンポーネントツリー図</text>
+  <text x="135" y="214" class="small">画面をどの単位で分けるか</text>
+  <text x="135" y="238" class="small">共通化候補と画面責務を整理</text>
+
+  <path d="M365 210 L485 210" class="edge" />
+
+  <rect x="490" y="145" width="260" height="130" rx="14" class="box" />
+  <text x="520" y="184" class="label">06 画面データ要求</text>
+  <text x="520" y="214" class="small">表示・入力・保存内容を整理</text>
+  <text x="520" y="238" class="small">操作と更新契機を対応付け</text>
+
+  <path d="M750 210 L870 210" class="edge" />
+
+  <rect x="875" y="145" width="260" height="130" rx="14" class="box2" />
+  <text x="905" y="184" class="label">07 ER図</text>
+  <text x="905" y="214" class="small">画面データの正本を整理</text>
+  <text x="905" y="238" class="small">テーブル・キー・関係を確認</text>
+
+  <rect x="105" y="330" width="1030" height="95" rx="16" class="note" />
+  <text x="135" y="365" class="noteText">対象画面: SC006 ガイド生成 / SC007 ガイド進行 / SC008 学習ガイド終了 / SC009 教材詳細</text>
+  <text x="135" y="395" class="noteText">対象外: 課金・決済 / 管理者・監査ログ / 組織管理 / 通知・フォロー</text>
+</svg>

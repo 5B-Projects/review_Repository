@@ -1,0 +1,1769 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="卒業制作 Metis の設計資料">
+      
+      
+      
+        <link rel="canonical" href="https://5b-projects.github.io/review_Repository/06-screen-data-requirements/">
+      
+      
+        <link rel="prev" href="../05-component-tree/">
+      
+      
+        <link rel="next" href="../07-er/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>コア画面のデータ要求 - Metis 設計資料</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Metis 設計資料" class="md-header__button md-logo" aria-label="Metis 設計資料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metis 設計資料
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              コア画面のデータ要求
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/5B-Projects/review_Repository" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    5B-Projects/review_Repository
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  00 概要
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../review-scope/" class="md-tabs__link">
+          
+  
+  
+  01 設計範囲
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../05-component-tree/" class="md-tabs__link">
+          
+  
+  
+  05 コンポーネントツリー図
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  06 画面データ要求
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../07-er/" class="md-tabs__link">
+          
+  
+  
+  07 ER図
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Metis 設計資料" class="md-nav__button md-logo" aria-label="Metis 設計資料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Metis 設計資料
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/5B-Projects/review_Repository" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    5B-Projects/review_Repository
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    00 概要
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            00 概要
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metis 設計資料
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    01 設計範囲
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            01 設計範囲
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    資料構成
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    05 コンポーネントツリー図
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            05 コンポーネントツリー図
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-component-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    見方と粒度
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    06 画面データ要求
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            06 画面データ要求
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    コア画面のデータ要求
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    コア画面のデータ要求
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      目的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      コア画面のデータ連鎖
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc006" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC006 ガイド生成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC006 ガイド生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc007" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC007 ガイド進行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC007 ガイド進行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc008" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC008 学習ガイド終了
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC008 学習ガイド終了">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc009" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC009 教材詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC009 教材詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#er" class="md-nav__link">
+    <span class="md-ellipsis">
+      ER図へ渡す確認ポイント
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    07 ER図
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            07 ER図
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-er/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ER図の見方
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      目的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      コア画面のデータ連鎖
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc006" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC006 ガイド生成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC006 ガイド生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc007" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC007 ガイド進行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC007 ガイド進行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc008" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC008 学習ガイド終了
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC008 学習ガイド終了">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sc009" class="md-nav__link">
+    <span class="md-ellipsis">
+      SC009 教材詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SC009 教材詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      表示
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      保存・更新
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      イベントと保存先
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認観点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#er" class="md-nav__link">
+    <span class="md-ellipsis">
+      ER図へ渡す確認ポイント
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="06">06 画面データ要求<a class="headerlink" href="#06" title="Permanent link">&para;</a></h1>
+<h2 id="_1">目的<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>画面データ要求は、画面ごとに必要なデータを整理する設計資料です。<br />
+画面に表示する値、利用者が入力する値、操作によって保存・更新される値を分けることで、コンポーネント設計とER図をつなげます。</p>
+<p>本ページでは、SC006〜SC009のコア画面を対象にします。</p>
+<table>
+<thead>
+<tr>
+<th>観点</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表示データ</td>
+<td>画面表示に必要な値、状態、一覧、メッセージ</td>
+</tr>
+<tr>
+<td>入力データ</td>
+<td>利用者が入力・選択・クリックする値</td>
+</tr>
+<tr>
+<td>保存・更新データ</td>
+<td>操作後に保持する値、状態、履歴</td>
+</tr>
+<tr>
+<td>保存・更新契機</td>
+<td>どの操作でデータが作成・更新されるか</td>
+</tr>
+<tr>
+<td>ER図との対応</td>
+<td>保存・更新される値がどのエンティティへつながるか</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">コア画面のデータ連鎖<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>流れ</th>
+<th>画面</th>
+<th>入力・操作</th>
+<th>保存・更新される主なデータ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>SC006 ガイド生成</td>
+<td>ゴール入力、タグ選択、学習スタイル設定</td>
+<td>ゴール下書き、選択タグ、学習スタイルスナップショット</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SC006 ガイド生成</td>
+<td>構成案確認、生成開始</td>
+<td>生成ジョブ、構成案、AI実行履歴、安全性検査結果</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SC007 ガイド進行</td>
+<td>章/ステップ閲覧、完了チェック</td>
+<td>ガイド進捗、章進捗、ステップ進捗、学習履歴</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SC007 ガイド進行</td>
+<td>AI相談、コード評価</td>
+<td>チャット履歴、AI実行履歴、評価ジョブ、評価結果</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SC008 学習ガイド終了</td>
+<td>完了確認、教材化操作</td>
+<td>ガイド完了記録、AI評価サマリー、教材化ジョブ</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SC009 教材詳細</td>
+<td>教材閲覧、学習開始、レビュー、作者操作</td>
+<td>教材学習履歴、レビュー、公開状態、作者メモ、閲覧権限</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sc006">SC006 ガイド生成<a class="headerlink" href="#sc006" title="Permanent link">&para;</a></h2>
+<h3 id="_3">表示<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>ステッパーの現在位置、ゴール入力例、ゴール入力の必須表示、入力エラー文言、テンプレートゴール、学習スタイル初期値、タグ候補、タグカテゴリ、推奨タグ、タグ説明、前提知識、タグ選択状態、選択タグ数、選択上限、構成案、生成ステータス、生成進捗率、推定待ち時間、生成サマリー、ブロック理由、環境ファイル生成状態、生成失敗状態。</p>
+<h3 id="_4">入力<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>ゴール本文、テンプレート選択、タグ検索、選択タグ、推奨タグの全選択・全解除操作、生成時学習スタイル上書き、詳細設定ファイル、カスタムAPI利用有無、下書き保存操作、生成開始操作、構成案の承認・修正・再生成操作、生成キャンセル操作、生成完了後の保存して学習開始操作。</p>
+<h3 id="_5">保存・更新<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>ゴール下書き、安全性チェック結果、選択タグ、生成ジョブ、学習スタイルスナップショット、構成案、ガイド本文、環境構築ファイルジョブ、ガードレール結果、生成版。</p>
+<h3 id="_6">イベントと保存先<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>イベント</th>
+<th>保存・更新</th>
+<th>主な保存先候補</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ゴール本文を入力する</td>
+<td>下書き本文、入力状態</td>
+<td><code>GOAL_DRAFTS</code></td>
+</tr>
+<tr>
+<td>タグを選択する</td>
+<td>選択タグ、タグ数、推奨タグ反映状態</td>
+<td><code>GENERATION_JOB_TAGS</code>, <code>TECHNOLOGY_TAGS</code></td>
+</tr>
+<tr>
+<td>学習スタイルを上書きする</td>
+<td>生成時点のスタイルスナップショット</td>
+<td><code>GENERATION_JOBS</code></td>
+</tr>
+<tr>
+<td>構成案を承認する</td>
+<td>構成案の版、承認状態</td>
+<td><code>GUIDE_OUTLINES</code></td>
+</tr>
+<tr>
+<td>生成を開始する</td>
+<td>ジョブ、進捗、失敗理由</td>
+<td><code>JOBS</code>, <code>GENERATION_JOBS</code></td>
+</tr>
+<tr>
+<td>AI生成が完了する</td>
+<td>生成済みガイド、章、ステップ</td>
+<td><code>GUIDES</code>, <code>GUIDE_CHAPTERS</code>, <code>GUIDE_STEPS</code></td>
+</tr>
+<tr>
+<td>安全性検査で止める</td>
+<td>ブロック理由、検査結果</td>
+<td><code>GUARDRAIL_RESULTS</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">確認観点<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ゴール入力からタグ選択、構成案確認、生成完了までの状態が追えるか。</li>
+<li>生成中・失敗・再生成の状態を保存できるか。</li>
+<li>生成時の学習スタイル上書きが既定値と混ざらないか。</li>
+<li>安全性検査で止まった場合に、利用者へ表示する理由と内部的な検査結果を保持できるか。</li>
+</ul>
+<hr />
+<h2 id="sc007">SC007 ガイド進行<a class="headerlink" href="#sc007" title="Permanent link">&para;</a></h2>
+<h3 id="_8">表示<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>ガイド概要、章一覧、現在章バッジ、進行状況、章、ステップ、学習目的、完了条件、完了チェック状態、次章ボタン活性状態、全体進捗、記事タイトル・本文、コードブロック、本文内の解説対象用語、環境作成状態、AIチャット履歴、AIドロワーの開閉状態、コード評価結果、未完了警告。</p>
+<h3 id="_9">入力<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>ステップ完了チェック、次章へ進む操作、AIへの質問、選択テキスト・用語クリックによるAI解説依頼、コード評価開始操作、フィードバック利用操作、コードブロックのコピー操作、AI回答コピー操作。</p>
+<h3 id="_10">保存・更新<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>ガイド進捗、章/ステップ完了状態、学習履歴、チャット履歴、AI評価ジョブ、実行評価、品質評価、フィードバック、ユーザーレベル推定、教材化候補。</p>
+<h3 id="_11">イベントと保存先<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>イベント</th>
+<th>保存・更新</th>
+<th>主な保存先候補</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ガイドを開く</td>
+<td>最終閲覧日時、現在章/ステップ</td>
+<td><code>GUIDE_PROGRESS</code>, 学習履歴</td>
+</tr>
+<tr>
+<td>ステップを完了する</td>
+<td>ステップ完了状態、全体進捗率</td>
+<td><code>STEP_PROGRESS</code>, <code>GUIDE_PROGRESS</code></td>
+</tr>
+<tr>
+<td>次章へ進む</td>
+<td>章完了状態、現在章</td>
+<td><code>CHAPTER_PROGRESS</code>, <code>GUIDE_PROGRESS</code></td>
+</tr>
+<tr>
+<td>AIへ質問する</td>
+<td>質問、回答、文脈、AI実行ID</td>
+<td><code>CHAT_MESSAGES</code>, <code>AI_EXECUTIONS</code></td>
+</tr>
+<tr>
+<td>コード評価を開始する</td>
+<td>評価ジョブ、評価対象、状態</td>
+<td><code>JOBS</code>, <code>EVALUATION_JOBS</code></td>
+</tr>
+<tr>
+<td>評価結果を受け取る</td>
+<td>スコア、評価コメント、改善提案</td>
+<td><code>EVALUATION_RESULTS</code></td>
+</tr>
+<tr>
+<td>フィードバックを利用する</td>
+<td>利用ログ、反映先</td>
+<td>フィードバック利用履歴</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">確認観点<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>章進捗とステップ進捗を分ける必要があるか。</li>
+<li>AI相談メッセージをガイド進捗に紐づける設計で十分か。</li>
+<li>コード評価結果とユーザーレベル推定の分離が妥当か。</li>
+<li>学習本文の閲覧状態と、AI相談・評価の状態が混ざらないか。</li>
+</ul>
+<hr />
+<h2 id="sc008">SC008 学習ガイド終了<a class="headerlink" href="#sc008" title="Permanent link">&para;</a></h2>
+<h3 id="_13">表示<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>完了したガイド、技術タグ、ガイド完了バッジ、完了日時、進捗率100%表示、学習時間、総合評価、AI評価サマリー、次に伸ばすポイント、完了サマリー画像、パンくず表示、教材作成導線、復習導線、ガイド一覧導線。</p>
+<h3 id="_14">入力<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>教材作成操作、復習操作、ガイド一覧へ戻る操作、お気に入り登録、レビューリクエスト、タグ付与確認。</p>
+<h3 id="_15">保存・更新<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>ガイド完了状態、教材下書き、教材タイトル/説明/タグ候補、完成イメージ画像ジョブ、公開不可理由、レビュー依頼状態。</p>
+<h3 id="_16">イベントと保存先<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>イベント</th>
+<th>保存・更新</th>
+<th>主な保存先候補</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ガイド完了画面を表示する</td>
+<td>完了記録、完了日時、学習時間</td>
+<td><code>GUIDE_COMPLETIONS</code></td>
+</tr>
+<tr>
+<td>AI評価を表示する</td>
+<td>総合評価、評価サマリー、改善提案</td>
+<td><code>AI_EVALUATION_SUMMARIES</code>, <code>EVALUATION_RESULTS</code></td>
+</tr>
+<tr>
+<td>教材化を開始する</td>
+<td>教材化ジョブ、作成状態</td>
+<td><code>JOBS</code>, <code>MATERIAL_CREATION_JOBS</code></td>
+</tr>
+<tr>
+<td>教材下書きを作る</td>
+<td>タイトル、説明、タグ候補</td>
+<td><code>MATERIALS</code>, <code>MATERIAL_VERSIONS</code>, <code>MATERIAL_TAGS</code></td>
+</tr>
+<tr>
+<td>復習へ戻る</td>
+<td>現在章/ステップの復元</td>
+<td><code>GUIDE_PROGRESS</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_17">確認観点<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ガイド完了と教材化の境界が明確か。</li>
+<li>教材化は完了済みガイドに限定する方針でよいか。</li>
+<li>AI評価サマリー、評価項目、改善提案をどこまで保存すべきか。</li>
+<li>完了結果が教材化の根拠として追跡できるか。</li>
+</ul>
+<hr />
+<h2 id="sc009">SC009 教材詳細<a class="headerlink" href="#sc009" title="Permanent link">&para;</a></h2>
+<h3 id="_18">表示<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>パンくず、教材タイトル、説明、価格、評価値と星の視覚表示、レビュー数、受講者数、作者、作者マイページへの導線、最終更新日、言語、タグ、ゴール、学習内容の項目リスト、目次、公開範囲、完成イメージ画像、購入/閲覧権限、レビュー一覧、レビュー集計、AIコメント要約、作成者メニュー、作者メモ、エクスポート状態、コード参照可否、技術バージョン・作者OS。</p>
+<h3 id="_19">入力<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>学習開始、カート追加、エクスポート形式選択、リンクコピー、レビュー投稿、公開/非公開切替、作者メモ、通報操作。</p>
+<h3 id="_20">保存・更新<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>カート明細、教材学習履歴、レビュー投稿、レビュー集計再計算、公開/非公開状態、作者メモ、エクスポートジョブ、通報フォーム起動記録。</p>
+<h3 id="_21">イベントと保存先<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>イベント</th>
+<th>保存・更新</th>
+<th>主な保存先候補</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>教材詳細を開く</td>
+<td>閲覧履歴、権限確認</td>
+<td>教材閲覧履歴、閲覧権限</td>
+</tr>
+<tr>
+<td>学習開始する</td>
+<td>教材学習履歴</td>
+<td>教材受講、教材進捗</td>
+</tr>
+<tr>
+<td>カートに追加する</td>
+<td>カート明細</td>
+<td>カート明細</td>
+</tr>
+<tr>
+<td>レビューを投稿する</td>
+<td>レビュー本文、評価値、集計更新</td>
+<td>レビュー、レビュー集計</td>
+</tr>
+<tr>
+<td>作者メモを保存する</td>
+<td>作者メモ</td>
+<td>作者メモ</td>
+</tr>
+<tr>
+<td>公開状態を切り替える</td>
+<td>公開/非公開状態、変更履歴</td>
+<td><code>MATERIALS</code>, 状態変更履歴</td>
+</tr>
+<tr>
+<td>通報する</td>
+<td>通報下書き、問い合わせ導線</td>
+<td>通報・問い合わせ記録</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_22">確認観点<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>教材詳細に課金・レビュー・作者操作が集まりすぎていないか。</li>
+<li>通常ユーザーの編集範囲を作者メモと公開状態に限定する方針が妥当か。</li>
+<li>教材版、教材セクション、教材チャプターの分割が画面表示と一致しているか。</li>
+<li>教材化されたガイドと、公開教材としての版管理が分離できているか。</li>
+</ul>
+<hr />
+<h2 id="er">ER図へ渡す確認ポイント<a class="headerlink" href="#er" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>確認ポイント</th>
+<th>ER図側で見る場所</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>画面表示に必要な値が正本として保存されるか</td>
+<td>コア範囲ER図の各エンティティ</td>
+</tr>
+<tr>
+<td>非同期処理の状態が追えるか</td>
+<td><code>JOBS</code> と用途別ジョブ詳細</td>
+</tr>
+<tr>
+<td>AI入出力の長文をDBへ直書きしない方針でよいか</td>
+<td><code>AI_EXECUTIONS</code> と本文アセット参照</td>
+</tr>
+<tr>
+<td>ガイド本文と利用者進捗が混ざっていないか</td>
+<td><code>GUIDES</code> 系と <code>GUIDE_PROGRESS</code> 系の分離</td>
+</tr>
+<tr>
+<td>教材化の根拠が残るか</td>
+<td><code>GUIDE_COMPLETIONS</code>, <code>AI_EVALUATION_SUMMARIES</code>, <code>MATERIAL_CREATION_JOBS</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

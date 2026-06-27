@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="920" viewBox="0 0 1440 920" role="img" aria-labelledby="title desc">
+  <title id="title">Metis 全体ER概要図</title>
+  <desc id="desc">コア、課金、管理、組織、通知、検索、認証補助など全体領域の関係を示す概要図</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#64748b" /></marker>
+    <style><![CDATA[
+      .title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .sub { font: 14px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #64748b; }
+      .group { fill: #f8fafc; stroke: #d7deea; stroke-width: 1.4; }
+      .core { fill: #eef5ff; stroke: #314d7f; stroke-width: 2; }
+      .box { fill: #ffffff; stroke: #314d7f; stroke-width: 1.6; }
+      .other { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.4; }
+      .label { font: 700 15px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .small { font: 11px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #5c6b80; }
+      .edge { fill: none; stroke: #64748b; stroke-width: 1.5; marker-end: url(#arrow); opacity: .82; }
+      .note { font: 12px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #475569; }
+    ]]></style>
+  </defs>
+  <rect width="1440" height="920" fill="#ffffff" />
+  <text x="36" y="44" class="title">Metis 全体ER概要図</text>
+  <text x="36" y="69" class="sub">初回レビューでは中央のコア領域を主対象にし、周辺領域は影響確認として扱う</text>
+
+  <rect x="435" y="110" width="570" height="635" rx="20" class="group" />
+  <text x="462" y="143" class="label">コア体験</text>
+
+  <rect x="485" y="175" width="190" height="86" rx="12" class="core" />
+  <text x="508" y="207" class="label">利用者</text>
+  <text x="508" y="231" class="small">users / profiles / styles</text>
+
+  <rect x="765" y="175" width="190" height="86" rx="12" class="core" />
+  <text x="788" y="207" class="label">ゴール・タグ</text>
+  <text x="788" y="231" class="small">goal_drafts / tags</text>
+
+  <rect x="485" y="315" width="190" height="86" rx="12" class="core" />
+  <text x="508" y="347" class="label">ガイド生成</text>
+  <text x="508" y="371" class="small">jobs / ai / guardrails</text>
+
+  <rect x="765" y="315" width="190" height="86" rx="12" class="core" />
+  <text x="788" y="347" class="label">学習ガイド</text>
+  <text x="788" y="371" class="small">guides / chapters / steps</text>
+
+  <rect x="485" y="455" width="190" height="86" rx="12" class="core" />
+  <text x="508" y="487" class="label">進捗・AI相談</text>
+  <text x="508" y="511" class="small">progress / chat</text>
+
+  <rect x="765" y="455" width="190" height="86" rx="12" class="core" />
+  <text x="788" y="487" class="label">AI評価</text>
+  <text x="788" y="511" class="small">evaluation_jobs / results</text>
+
+  <rect x="625" y="595" width="190" height="86" rx="12" class="core" />
+  <text x="648" y="627" class="label">教材</text>
+  <text x="648" y="651" class="small">materials / versions</text>
+
+  <path d="M675 218 L765 218" class="edge" />
+  <path d="M860 261 L675 315" class="edge" />
+  <path d="M675 358 L765 358" class="edge" />
+  <path d="M860 401 L675 455" class="edge" />
+  <path d="M675 498 L765 498" class="edge" />
+  <path d="M860 541 L780 595" class="edge" />
+
+  <rect x="60" y="135" width="270" height="150" rx="16" class="other" />
+  <text x="88" y="173" class="label">認証・外部連携</text>
+  <text x="88" y="199" class="small">auth_identities / external_accounts</text>
+  <text x="88" y="219" class="small">terms_consents / login_events</text>
+  <text x="88" y="239" class="small">ユーザーの入口と同意履歴</text>
+
+  <rect x="60" y="350" width="270" height="150" rx="16" class="other" />
+  <text x="88" y="388" class="label">検索・発見</text>
+  <text x="88" y="414" class="small">search_logs / snapshots</text>
+  <text x="88" y="434" class="small">favorites / follows</text>
+  <text x="88" y="454" class="small">教材発見と利用者関係</text>
+
+  <rect x="60" y="565" width="270" height="150" rx="16" class="other" />
+  <text x="88" y="603" class="label">通知</text>
+  <text x="88" y="629" class="small">notifications / delivery_logs</text>
+  <text x="88" y="649" class="small">教材更新・評価完了・運営連絡</text>
+
+  <rect x="1110" y="135" width="270" height="150" rx="16" class="other" />
+  <text x="1138" y="173" class="label">課金・決済</text>
+  <text x="1138" y="199" class="small">carts / orders / payments</text>
+  <text x="1138" y="219" class="small">entitlements / invoices</text>
+  <text x="1138" y="239" class="small">教材購入と利用権限</text>
+
+  <rect x="1110" y="350" width="270" height="150" rx="16" class="other" />
+  <text x="1138" y="388" class="label">管理・監査</text>
+  <text x="1138" y="414" class="small">admin_actions / audit_logs</text>
+  <text x="1138" y="434" class="small">reports / inquiries</text>
+  <text x="1138" y="454" class="small">運用判断と履歴追跡</text>
+
+  <rect x="1110" y="565" width="270" height="150" rx="16" class="other" />
+  <text x="1138" y="603" class="label">組織・API</text>
+  <text x="1138" y="629" class="small">organizations / memberships</text>
+  <text x="1138" y="649" class="small">api_keys / usage_logs</text>
+  <text x="1138" y="669" class="small">将来拡張・法人利用</text>
+
+  <path d="M330 210 L485 210" class="edge" />
+  <path d="M330 425 L485 498" class="edge" />
+  <path d="M330 640 L625 640" class="edge" />
+  <path d="M955 218 L1110 210" class="edge" />
+  <path d="M955 498 L1110 425" class="edge" />
+  <path d="M815 640 L1110 640" class="edge" />
+
+  <rect x="165" y="800" width="1110" height="58" rx="14" fill="#f8fafc" stroke="#d7deea" stroke-width="1.4" />
+  <text x="190" y="835" class="note">完全なカラム定義はDBスキーマ設計で確認する。この図は、全体ERの領域分割とコア範囲の位置づけを説明するための概要図。</text>
+</svg>

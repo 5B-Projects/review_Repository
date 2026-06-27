@@ -1,0 +1,343 @@
+' Core logical ER diagram extracted from 5B-Projects/metis docs/design/07-er/all-er-diagrams.puml
+@startuml
+title コア範囲ER図（SC006〜SC009）
+
+hide circle
+skinparam backgroundColor white
+skinparam dpi 160
+skinparam linetype polyline
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam classFontName "Hiragino Sans"
+skinparam classAttributeFontName "Hiragino Sans"
+skinparam nodesep 20
+skinparam ranksep 30
+
+left to right direction
+
+package "利用者・前提" {
+  entity "利用者" as USERS {
+    * 利用者ID : uuid <<PK>>
+    --
+    システムロール : enum(user/admin)
+    アカウント状態 : enum
+    登録日時 : timestamptz
+    最終ログイン日時 : timestamptz?
+  }
+
+  entity "利用者プロフィール" as USER_PROFILES {
+    * 利用者ID : uuid <<PK,FK>>
+    --
+    表示名 : varchar
+    ユーザー名 : varchar <<UK>>
+    アイコン画像ID : uuid <<FK?>>
+    更新日時 : timestamptz
+  }
+
+  entity "学習スタイル既定値" as LEARNING_STYLE_DEFAULTS {
+    * 利用者ID : uuid <<PK,FK>>
+    --
+    学習方向 : enum
+    難易度 : enum
+    説明粒度 : enum
+    チャプター数 : integer?
+    段階数 : integer?
+    言語 : enum
+  }
+}
+
+package "タグ" {
+  entity "技術タグ" as TECHNOLOGY_TAGS {
+    * 技術タグID : uuid <<PK>>
+    --
+    スラッグ : varchar <<UK>>
+    タグ名 : varchar
+    分類 : varchar?
+    前提知識 : text?
+    難易度 : enum?
+    検索表示フラグ : boolean
+  }
+}
+
+package "ガイド生成" {
+  entity "学習ゴール下書き" as GOAL_DRAFTS {
+    * ゴール下書きID : uuid <<PK>>
+    --
+    利用者ID : uuid <<FK>>
+    ゴール本文 : text
+    テンプレートキー : varchar?
+    安全性確認結果 : enum
+    状態 : enum
+  }
+
+  entity "ジョブ" as JOBS {
+    * ジョブID : uuid <<PK>>
+    --
+    利用者ID : uuid <<FK>>
+    ジョブ種別 : enum
+    状態 : enum
+    進捗率 : integer
+    冪等性キー : varchar? <<UK>>
+    ブロック理由 : text?
+    失敗理由 : text?
+  }
+
+  entity "ガイド生成ジョブ詳細" as GENERATION_JOBS {
+    * ジョブID : uuid <<PK,FK>>
+    --
+    ゴール下書きID : uuid <<FK>>
+    版 : integer
+    学習スタイルスナップショット : jsonb
+    カスタムAPI利用フラグ : boolean
+  }
+
+  entity "AI実行" as AI_EXECUTIONS {
+    * AI実行ID : uuid <<PK>>
+    --
+    ジョブID : uuid <<FK?>>
+    用途 : enum
+    モデル名 : varchar?
+    入力パス : text?
+    出力パス : text?
+    実行状態 : enum
+  }
+
+  entity "ガードレール検査結果" as GUARDRAIL_RESULTS {
+    * 検査結果ID : uuid <<PK>>
+    --
+    AI実行ID : uuid <<FK>>
+    検査種別 : enum
+    判定 : enum
+    理由コード : varchar?
+  }
+
+  entity "生成ジョブ選択タグ" as GENERATION_JOB_TAGS {
+    * ジョブID : uuid <<PK,FK>>
+    * 技術タグID : uuid <<PK,FK>>
+    --
+    推奨フラグ : boolean
+    表示順 : integer
+  }
+
+  entity "ガイド構成案" as GUIDE_OUTLINES {
+    * ガイド構成案ID : uuid <<PK>>
+    --
+    ジョブID : uuid <<FK>>
+    版 : integer
+    構成JSON : jsonb
+    確認状態 : enum
+  }
+}
+
+package "ガイド進行" {
+  entity "学習ガイド" as GUIDES {
+    * 学習ガイドID : uuid <<PK>>
+    --
+    利用者ID : uuid <<FK>>
+    ジョブID : uuid <<FK?>>
+    タイトル : varchar
+    ゴール内容 : text
+    状態 : enum
+  }
+
+  entity "ガイドタグ関連" as GUIDE_TAGS {
+    * 学習ガイドID : uuid <<PK,FK>>
+    * 技術タグID : uuid <<PK,FK>>
+  }
+
+  entity "ガイド章" as GUIDE_CHAPTERS {
+    * ガイド章ID : uuid <<PK>>
+    --
+    学習ガイドID : uuid <<FK>>
+    タイトル : varchar
+    表示順 : integer
+  }
+
+  entity "ガイドステップ" as GUIDE_STEPS {
+    * ガイドステップID : uuid <<PK>>
+    --
+    ガイド章ID : uuid <<FK>>
+    タイトル : varchar
+    本文 : text
+    表示順 : integer
+  }
+
+  entity "ガイド進捗" as GUIDE_PROGRESS {
+    * ガイド進捗ID : uuid <<PK>>
+    --
+    利用者ID : uuid <<FK>>
+    学習ガイドID : uuid <<FK>>
+    進捗率 : integer
+    現在ガイド章ID : uuid <<FK?>>
+    現在ガイドステップID : uuid <<FK?>>
+  }
+
+  entity "章進捗" as CHAPTER_PROGRESS {
+    * 章進捗ID : uuid <<PK>>
+    --
+    ガイド進捗ID : uuid <<FK>>
+    ガイド章ID : uuid <<FK>>
+    状態 : enum
+  }
+
+  entity "ステップ進捗" as STEP_PROGRESS {
+    * ステップ進捗ID : uuid <<PK>>
+    --
+    章進捗ID : uuid <<FK>>
+    ガイドステップID : uuid <<FK>>
+    状態 : enum
+  }
+
+  entity "AI相談メッセージ" as CHAT_MESSAGES {
+    * AI相談メッセージID : uuid <<PK>>
+    --
+    ガイド進捗ID : uuid <<FK>>
+    送信者種別 : enum
+    本文パス : text
+    作成日時 : timestamptz
+  }
+}
+
+package "評価・完了・教材化" {
+  entity "コード評価ジョブ" as EVALUATION_JOBS {
+    * ジョブID : uuid <<PK,FK>>
+    --
+    ガイド進捗ID : uuid <<FK>>
+    ガイドステップID : uuid <<FK?>>
+    入力アセットパス : text?
+  }
+
+  entity "コード評価結果" as EVALUATION_RESULTS {
+    * コード評価結果ID : uuid <<PK>>
+    --
+    ジョブID : uuid <<FK>>
+    評価種別 : enum
+    スコア : numeric?
+    結果サマリー : text?
+    詳細結果パス : text?
+  }
+
+  entity "ガイド完了記録" as GUIDE_COMPLETIONS {
+    * ガイド完了ID : uuid <<PK>>
+    --
+    利用者ID : uuid <<FK>>
+    学習ガイドID : uuid <<FK>>
+    完了日時 : timestamptz
+    進捗率 : integer = 100
+    学習時間分数 : integer
+  }
+
+  entity "AI評価サマリー" as AI_EVALUATION_SUMMARIES {
+    * AI評価サマリーID : uuid <<PK>>
+    --
+    ガイド完了ID : uuid <<FK,UK>>
+    総合評価 : varchar
+    評価日時 : timestamptz
+  }
+
+  entity "教材化ジョブ" as MATERIAL_CREATION_JOBS {
+    * ジョブID : uuid <<PK,FK>>
+    --
+    ガイド完了ID : uuid <<FK>>
+    作成者利用者ID : uuid <<FK>>
+    教材化意思表示日時 : timestamptz
+    作成教材ID : uuid <<FK?>>
+    公開不可理由 : text?
+  }
+}
+
+package "教材" {
+  entity "教材" as MATERIALS {
+    * 教材ID : uuid <<PK>>
+    --
+    作成者利用者ID : uuid <<FK>>
+    元学習ガイドID : uuid <<FK?>>
+    現行教材版ID : uuid <<FK?>>
+    タイトル : varchar
+    説明 : text
+    公開状態 : enum
+    価格金額 : numeric
+  }
+
+  entity "教材版" as MATERIAL_VERSIONS {
+    * 教材版ID : uuid <<PK>>
+    --
+    教材ID : uuid <<FK>>
+    版番号 : integer
+    元ガイド完了ID : uuid <<FK?>>
+    本文アセットパス : text
+    技術スタック : jsonb
+    検証状態 : enum
+  }
+
+  entity "教材タグ関連" as MATERIAL_TAGS {
+    * 教材ID : uuid <<PK,FK>>
+    * 技術タグID : uuid <<PK,FK>>
+    --
+    作成日時 : timestamptz
+  }
+
+  entity "教材セクション" as MATERIAL_SECTIONS {
+    * 教材セクションID : uuid <<PK>>
+    --
+    教材版ID : uuid <<FK>>
+    タイトル : varchar
+    表示順 : integer
+  }
+
+  entity "教材チャプター" as MATERIAL_CHAPTERS {
+    * 教材チャプターID : uuid <<PK>>
+    --
+    教材セクションID : uuid <<FK>>
+    タイトル : varchar
+    本文アセットパス : text
+    表示順 : integer
+  }
+}
+
+USERS ||--|| USER_PROFILES : "プロフィール"
+USERS ||--o| LEARNING_STYLE_DEFAULTS : "既定値"
+USERS ||--o{ GOAL_DRAFTS : "ゴール"
+USERS ||--o{ JOBS : "依頼"
+JOBS ||--o| GENERATION_JOBS : "ガイド生成"
+GOAL_DRAFTS ||--o{ GENERATION_JOBS : "生成起動"
+JOBS ||--o{ AI_EXECUTIONS : "AI実行"
+AI_EXECUTIONS ||--o{ GUARDRAIL_RESULTS : "検査"
+GENERATION_JOBS ||--o{ GENERATION_JOB_TAGS : "選択タグ"
+TECHNOLOGY_TAGS ||--o{ GENERATION_JOB_TAGS : "選択"
+GENERATION_JOBS ||--o{ GUIDE_OUTLINES : "構成案"
+GENERATION_JOBS ||--o| GUIDES : "成果物"
+USERS ||--o{ GUIDES : "所有"
+GUIDES ||--o{ GUIDE_TAGS : "タグ"
+TECHNOLOGY_TAGS ||--o{ GUIDE_TAGS : "ガイド分類"
+GUIDES ||--o{ GUIDE_CHAPTERS : "章"
+GUIDE_CHAPTERS ||--o{ GUIDE_STEPS : "ステップ"
+USERS ||--o{ GUIDE_PROGRESS : "学習"
+GUIDES ||--o{ GUIDE_PROGRESS : "進捗"
+GUIDE_PROGRESS ||--o{ CHAPTER_PROGRESS : "章進捗"
+GUIDE_CHAPTERS ||--o{ CHAPTER_PROGRESS : "対象章"
+CHAPTER_PROGRESS ||--o{ STEP_PROGRESS : "ステップ進捗"
+GUIDE_STEPS ||--o{ STEP_PROGRESS : "対象ステップ"
+GUIDE_PROGRESS ||--o{ CHAT_MESSAGES : "AI相談"
+JOBS ||--|| EVALUATION_JOBS : "コード評価"
+GUIDE_PROGRESS ||--o{ EVALUATION_JOBS : "コード評価"
+EVALUATION_JOBS ||--o{ AI_EXECUTIONS : "評価AI"
+EVALUATION_JOBS ||--o{ EVALUATION_RESULTS : "評価結果"
+USERS ||--o{ GUIDE_COMPLETIONS : "完了"
+GUIDES ||--o{ GUIDE_COMPLETIONS : "完了記録"
+GUIDE_COMPLETIONS ||--o| AI_EVALUATION_SUMMARIES : "AI評価"
+JOBS ||--|| MATERIAL_CREATION_JOBS : "教材化"
+GUIDE_COMPLETIONS ||--o| MATERIAL_CREATION_JOBS : "教材化"
+USERS ||--o{ MATERIAL_CREATION_JOBS : "意思表示"
+MATERIAL_CREATION_JOBS ||--o| MATERIALS : "教材"
+USERS ||--o{ MATERIALS : "作成"
+MATERIALS ||--o{ MATERIAL_VERSIONS : "版"
+MATERIALS ||--o| MATERIAL_VERSIONS : "現行版"
+MATERIALS ||--o{ MATERIAL_TAGS : "タグ"
+TECHNOLOGY_TAGS ||--o{ MATERIAL_TAGS : "教材分類"
+MATERIAL_VERSIONS ||--o{ MATERIAL_SECTIONS : "構成"
+MATERIAL_SECTIONS ||--o{ MATERIAL_CHAPTERS : "チャプター"
+GUIDES ||--o{ MATERIALS : "元ガイド"
+GUIDE_COMPLETIONS ||--o{ MATERIAL_VERSIONS : "教材化元"
+
+@enduml

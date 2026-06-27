@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="790" viewBox="0 0 1320 790" role="img" aria-labelledby="title desc">
+  <title id="title">SC007 ガイド進行 コンポーネントツリー</title>
+  <desc id="desc">ガイド進行画面のReactコンポーネント分割例</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#64748b" /></marker>
+    <style><![CDATA[
+      .title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .sub { font: 14px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #64748b; }
+      .box { fill: #ffffff; stroke: #314d7f; stroke-width: 1.8; }
+      .shared { fill: #eef5ff; stroke: #314d7f; stroke-width: 1.8; }
+      .leaf { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.3; }
+      .label { font: 700 15px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172033; }
+      .small { font: 11px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #5c6b80; }
+      .edge { fill: none; stroke: #64748b; stroke-width: 1.5; marker-end: url(#arrow); }
+      .tag { font: 10px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #314d7f; }
+    ]]></style>
+  </defs>
+  <rect width="1320" height="790" fill="#ffffff" />
+  <text x="36" y="45" class="title">SC007 ガイド進行 コンポーネントツリー</text>
+  <text x="36" y="70" class="sub">学習本文、進捗、AI相談、コード評価を画面内で混ぜすぎないための分割例</text>
+
+  <rect x="520" y="105" width="280" height="72" rx="13" class="shared" />
+  <text x="548" y="134" class="label">GuideProgressPage</text>
+  <text x="548" y="157" class="small">進捗・本文・AI支援の親画面</text>
+
+  <path d="M660 177 L150 240" class="edge" />
+  <path d="M660 177 L400 240" class="edge" />
+  <path d="M660 177 L660 240" class="edge" />
+  <path d="M660 177 L920 240" class="edge" />
+  <path d="M660 177 L1160 240" class="edge" />
+
+  <rect x="45" y="240" width="230" height="90" rx="12" class="box" />
+  <text x="68" y="271" class="label">GuideProgressSidebar</text>
+  <text x="68" y="295" class="small">章一覧・ステップ一覧・現在位置</text>
+  <text x="68" y="317" class="tag">保存先: guide_progress</text>
+
+  <rect x="300" y="240" width="230" height="90" rx="12" class="box" />
+  <text x="323" y="271" class="label">ChapterContentArea</text>
+  <text x="323" y="295" class="small">本文・コード例・用語解説</text>
+  <text x="323" y="317" class="tag">参照: guide_chapters / steps</text>
+
+  <rect x="555" y="240" width="230" height="90" rx="12" class="box" />
+  <text x="578" y="271" class="label">StepCompletionPanel</text>
+  <text x="578" y="295" class="small">完了条件・チェック・次へ</text>
+  <text x="578" y="317" class="tag">更新: step_progress</text>
+
+  <rect x="810" y="240" width="230" height="90" rx="12" class="box" />
+  <text x="833" y="271" class="label">AiAssistantDrawer</text>
+  <text x="833" y="295" class="small">質問・回答・文脈付き解説</text>
+  <text x="833" y="317" class="tag">保存先: chat_messages</text>
+
+  <rect x="1065" y="240" width="210" height="90" rx="12" class="box" />
+  <text x="1088" y="271" class="label">CodeEvaluationPanel</text>
+  <text x="1088" y="295" class="small">評価開始・結果・改善提案</text>
+  <text x="1088" y="317" class="tag">保存先: evaluation_results</text>
+
+  <path d="M160 330 L160 400" class="edge" />
+  <path d="M415 330 L415 400" class="edge" />
+  <path d="M670 330 L670 400" class="edge" />
+  <path d="M925 330 L925 400" class="edge" />
+  <path d="M1170 330 L1170 400" class="edge" />
+
+  <rect x="45" y="400" width="230" height="70" rx="11" class="leaf" />
+  <text x="68" y="429" class="label">ChapterStepList</text>
+  <text x="68" y="451" class="small">完了・未完了・現在章を表示</text>
+
+  <rect x="300" y="400" width="230" height="70" rx="11" class="leaf" />
+  <text x="323" y="429" class="label">CodeBlockViewer</text>
+  <text x="323" y="451" class="small">コピー・言語表示・参照状態</text>
+
+  <rect x="555" y="400" width="230" height="70" rx="11" class="leaf" />
+  <text x="578" y="429" class="label">CompletionCheckList</text>
+  <text x="578" y="451" class="small">完了条件と未完了警告</text>
+
+  <rect x="810" y="400" width="230" height="70" rx="11" class="leaf" />
+  <text x="833" y="429" class="label">ChatMessageList</text>
+  <text x="833" y="451" class="small">質問・回答・コピー操作</text>
+
+  <rect x="1065" y="400" width="210" height="70" rx="11" class="leaf" />
+  <text x="1088" y="429" class="label">EvaluationResultCard</text>
+  <text x="1088" y="451" class="small">実行評価・品質評価</text>
+
+  <rect x="170" y="565" width="300" height="90" rx="13" class="shared" />
+  <text x="197" y="598" class="label">LearningHistoryRecorder</text>
+  <text x="197" y="622" class="small">章閲覧、ステップ完了、学習時間を記録</text>
+  <text x="197" y="644" class="tag">更新: learning_events / progress</text>
+
+  <rect x="510" y="565" width="300" height="90" rx="13" class="shared" />
+  <text x="537" y="598" class="label">ContextBridge</text>
+  <text x="537" y="622" class="small">現在章・選択テキストをAI相談へ渡す</text>
+  <text x="537" y="644" class="tag">DB保存ではなくリクエスト文脈</text>
+
+  <rect x="850" y="565" width="300" height="90" rx="13" class="shared" />
+  <text x="877" y="598" class="label">FeedbackApplyAction</text>
+  <text x="877" y="622" class="small">AI提案を学習ステップへ反映する操作</text>
+  <text x="877" y="644" class="tag">更新: feedback_usage_logs</text>
+
+  <path d="M670 330 C670 515 320 515 320 565" class="edge" />
+  <path d="M925 330 C925 515 660 515 660 565" class="edge" />
+  <path d="M1170 330 C1170 515 1000 515 1000 565" class="edge" />
+
+  <text x="40" y="720" class="small">この画面では「読む」「進める」「相談する」「評価する」が同時に起きるため、状態と保存契機を分けてレビューする。</text>
+</svg>
