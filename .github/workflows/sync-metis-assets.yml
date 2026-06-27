@@ -1,0 +1,62 @@
+name: Sync Metis design images
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/sync-metis-assets.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-metis-assets
+  cancel-in-progress: false
+
+env:
+  METIS_REPO_TOKEN: ${{ secrets.METIS_REPO_TOKEN }}
+
+jobs:
+  sync-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout review repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Metis repository
+        if: ${{ env.METIS_REPO_TOKEN != '' }}
+        uses: actions/checkout@v6
+        with:
+          repository: 5B-Projects/metis
+          ref: develop
+          token: ${{ secrets.METIS_REPO_TOKEN }}
+          path: _metis
+
+      - name: Stop when METIS_REPO_TOKEN is missing
+        if: ${{ env.METIS_REPO_TOKEN == '' }}
+        run: |
+          echo "METIS_REPO_TOKEN is not configured."
+          echo "Add a repository secret with read access to 5B-Projects/metis."
+          exit 1
+
+      - name: Copy actual Metis design images
+        run: |
+          mkdir -p docs/assets/metis/component-tree docs/assets/metis/er
+          cp _metis/docs/design/05-component-tree/image/*.png docs/assets/metis/component-tree/
+          cp _metis/docs/design/07-er/image/all-er-diagrams.png docs/assets/metis/er/all-er-diagrams.png
+
+      - name: Commit copied assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/assets/metis
+          if git diff --cached --quiet; then
+            echo "No Metis asset changes."
+          else
+            git commit -m "Sync actual Metis design images"
+            git push
+          fi
