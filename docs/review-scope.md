@@ -4,7 +4,7 @@
 
 初回レビューでは、全設計を一度に見せるのではなく、以下の順に確認します。
 
-![初回レビューの確認順](assets/review/core-review-flow.svg)
+![初回レビューの確認順](../assets/review/core-review-flow.svg)
 
 | 順番 | 資料 | 見ること |
 |---|---|---|
