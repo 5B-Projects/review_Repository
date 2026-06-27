@@ -4,6 +4,11 @@ site_url: https://5b-projects.github.io/review_Repository/
 repo_url: https://github.com/5B-Projects/review_Repository
 repo_name: 5B-Projects/review_Repository
 
+exclude_docs: |
+  08-table-layout.md
+  09-supabase-data-placement.md
+  10-database-schema.md
+
 theme:
   name: material
   language: ja
